@@ -20,8 +20,8 @@ services:
       - backend.env
     environment:
       - JAEGER_AGENT_HOST=jaeger
-      - DASHBOARD_URL=http://localhost:9000/
-      - ALLOWED_HOSTS=localhost,api,192.168.1.116, 0.0.0.0
+      - DASHBOARD_URL=http://0.0.0.0:9000/
+      - ALLOWED_HOSTS=localhost,api,192.168.1.116,0.0.0.0
 
   dashboard:
     image: ghcr.io/saleor/saleor-dashboard:latest
@@ -37,8 +37,8 @@ services:
     networks:
       - saleor-backend-tier
     volumes:
-      - saleor-db:/var/lib/postgresql/data
-      - ./replica_user.sql:/docker-entrypoint-initdb.d/replica_user.sql
+      - ../files/saleor-db:/var/lib/postgresql/data
+      - ../files/replica_user.sql:/docker-entrypoint-initdb.d/replica_user.sql
     environment:
       - POSTGRES_USER=saleor
       - POSTGRES_PASSWORD=saleor
